@@ -8,7 +8,8 @@ logger = logging.getLogger(__name__)
 
 from langchain_core.prompts import PromptTemplate  # Updated import per deprecation notice
 from langchain.chains import RetrievalQA
-from langchain_community.embeddings import HuggingFaceInstructEmbeddings  # New import path
+from langchain_community.embeddings import HuggingFaceInstructEmbeddings  # New import path.  pip install langchain-community
+
 from langchain_community.document_loaders import PyPDFLoader  # New import path
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma  # New import path
@@ -54,7 +55,7 @@ def init_llm():
     #Initialize embeddings using a pre-trained model to represent the text data.
     
     # create object of Hugging Face Instruct Embeddings with (model_name,  model_kwargs={"device": DEVICE} )
-    embeddings =  HuggingFaceInstructEmbeddings(model_name ="sentence-transformers/all-MiniLM-L6-v2",  ,model_kwargs={"device": DEVICE})
+    embeddings =  HuggingFaceInstructEmbeddings(model_name ="sentence-transformers/all-MiniLM-L6-v2", model_kwargs={"device": DEVICE})
     
     logger.debug("Embeddings initialized with model device: %s", DEVICE)
 
@@ -114,7 +115,7 @@ def process_prompt(prompt):
     # Update the chat history
     # TODO: Append the prompt and the bot's response to the chat history using chat_history.append and pass `prompt` `answer` as arguments
     # --> write your code here <--	
-    
+    chat_history.append((prompt,answer))
     logger.debug("Chat history updated. Total exchanges: %d", len(chat_history))
 
     # Return the model's response
